@@ -4,16 +4,17 @@
 #
 Name     : perl-File-LibMagic
 Version  : 1.16
-Release  : 10
+Release  : 11
 URL      : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.16.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.16.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfile-libmagic-perl/libfile-libmagic-perl_1.16-1.debian.tar.xz
 Summary  : 'Determine MIME types of data or files using libmagic'
 Group    : Development/Tools
 License  : Apache-2.0 Artistic-1.0 Artistic-1.0-Perl GPL-1.0 GPL-2.0 MIT
-Requires: perl-File-LibMagic-lib = %{version}-%{release}
 Requires: perl-File-LibMagic-license = %{version}-%{release}
+Requires: perl-File-LibMagic-perl = %{version}-%{release}
 BuildRequires : buildreq-cpan
+BuildRequires : file-dev
 BuildRequires : perl(Test::Fatal)
 BuildRequires : perl(Try::Tiny)
 
@@ -25,20 +26,11 @@ File::LibMagic - Determine MIME types of data or files using libmagic
 %package dev
 Summary: dev components for the perl-File-LibMagic package.
 Group: Development
-Requires: perl-File-LibMagic-lib = %{version}-%{release}
 Provides: perl-File-LibMagic-devel = %{version}-%{release}
+Requires: perl-File-LibMagic = %{version}-%{release}
 
 %description dev
 dev components for the perl-File-LibMagic package.
-
-
-%package lib
-Summary: lib components for the perl-File-LibMagic package.
-Group: Libraries
-Requires: perl-File-LibMagic-license = %{version}-%{release}
-
-%description lib
-lib components for the perl-File-LibMagic package.
 
 
 %package license
@@ -49,18 +41,28 @@ Group: Default
 license components for the perl-File-LibMagic package.
 
 
+%package perl
+Summary: perl components for the perl-File-LibMagic package.
+Group: Default
+Requires: perl-File-LibMagic = %{version}-%{release}
+
+%description perl
+perl components for the perl-File-LibMagic package.
+
+
 %prep
 %setup -q -n File-LibMagic-1.16
-cd ..
-%setup -q -T -D -n File-LibMagic-1.16 -b 1
+cd %{_builddir}
+tar xf %{_sourcedir}/libfile-libmagic-perl_1.16-1.debian.tar.xz
+cd %{_builddir}/File-LibMagic-1.16
 mkdir -p deblicense/
-mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/File-LibMagic-1.16/deblicense/
+cp -r %{_builddir}/debian/* %{_builddir}/File-LibMagic-1.16/deblicense/
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
+export LANG=C.UTF-8
 if test -f Makefile.PL; then
 %{__perl} Makefile.PL
 make  %{?_smp_mflags}
@@ -70,7 +72,7 @@ else
 fi
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -79,8 +81,8 @@ make TEST_VERBOSE=1 test
 %install
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-File-LibMagic
-cp LICENSE %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/LICENSE
-cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/deblicense_copyright
+cp %{_builddir}/File-LibMagic-1.16/LICENSE %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/894b32cb266a7568d7a53b623109529635119e3a
+cp %{_builddir}/File-LibMagic-1.16/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/817a05d17d7e2ca546655f7b38744dbea0d6f0d0
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -93,17 +95,17 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/File/LibMagic.pm
 
 %files dev
 %defattr(-,root,root,-)
 /usr/share/man/man3/File::LibMagic.3
 
-%files lib
-%defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
-
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/perl-File-LibMagic/LICENSE
-/usr/share/package-licenses/perl-File-LibMagic/deblicense_copyright
+/usr/share/package-licenses/perl-File-LibMagic/817a05d17d7e2ca546655f7b38744dbea0d6f0d0
+/usr/share/package-licenses/perl-File-LibMagic/894b32cb266a7568d7a53b623109529635119e3a
+
+%files perl
+%defattr(-,root,root,-)
+/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/File/LibMagic.pm
+/usr/lib/perl5/vendor_perl/5.28.2/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
