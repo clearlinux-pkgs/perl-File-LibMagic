@@ -4,7 +4,7 @@
 #
 Name     : perl-File-LibMagic
 Version  : 1.16
-Release  : 12
+Release  : 13
 URL      : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.16.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.16.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfile-libmagic-perl/libfile-libmagic-perl_1.16-1.debian.tar.xz
@@ -82,7 +82,7 @@ make TEST_VERBOSE=1 test
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/perl-File-LibMagic
 cp %{_builddir}/File-LibMagic-1.16/LICENSE %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/894b32cb266a7568d7a53b623109529635119e3a
-cp %{_builddir}/File-LibMagic-1.16/deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/817a05d17d7e2ca546655f7b38744dbea0d6f0d0
+cp %{_builddir}/debian/copyright %{buildroot}/usr/share/package-licenses/perl-File-LibMagic/817a05d17d7e2ca546655f7b38744dbea0d6f0d0
 if test -f Makefile.PL; then
 make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
@@ -107,5 +107,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/File/LibMagic.pm
-/usr/lib/perl5/vendor_perl/5.30.1/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/File/LibMagic.pm
+/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
