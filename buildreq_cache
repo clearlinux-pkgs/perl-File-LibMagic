@@ -1,3 +1,5 @@
-1.16
+1.22
+perl(Capture::Tiny)
+perl(Config::AutoConf)
 perl(Test::Fatal)
 perl(Try::Tiny)
