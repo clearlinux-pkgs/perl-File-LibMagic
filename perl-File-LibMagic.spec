@@ -4,7 +4,7 @@
 #
 Name     : perl-File-LibMagic
 Version  : 1.22
-Release  : 14
+Release  : 15
 URL      : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.22.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/File-LibMagic-1.22.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libf/libfile-libmagic-perl/libfile-libmagic-perl_1.16-1.debian.tar.xz
@@ -110,6 +110,6 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/File/LibMagic.pm
-/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/File/LibMagic/Constants.pm
-/usr/lib/perl5/vendor_perl/5.30.2/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
+/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/File/LibMagic.pm
+/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/File/LibMagic/Constants.pm
+/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/auto/File/LibMagic/LibMagic.so
